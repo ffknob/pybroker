@@ -1,5 +1,5 @@
-from pybroker.ui.screen import AbstractScreen, ScreenOptions, ScreenReturn
+from pybroker.ui.screen import AbstractScreen, ScreenState, ScreenReturn
 
 
-class BaseScreen(AbstractScreen[ScreenOptions, ScreenReturn]):
+class BaseScreen(AbstractScreen[ScreenState, ScreenReturn]):
     pass

@@ -6,7 +6,7 @@ from pybroker.model import Credentials
 
 
 class LoginScreen(BaseScreen[None, Credentials]):
-    def execute(self, options: None = None) -> Credentials:
+    def execute(self, state: None = None) -> Credentials:
         WelcomeMessage().render()
 
         username = Prompt.ask("[bold cyan]📧 E-mail[/bold cyan]")

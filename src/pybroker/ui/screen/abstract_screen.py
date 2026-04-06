@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from typing import Generic, TypeVar, Any
 
-ScreenOptions = TypeVar("ScreenOptions", bound=Any)
+ScreenState = TypeVar("ScreenState", bound=Any)
 ScreenReturn = TypeVar("ScreenReturn", bound=Any)
 
 
-class AbstractScreen(ABC, Generic[ScreenOptions, ScreenReturn]):
+class AbstractScreen(ABC, Generic[ScreenState, ScreenReturn]):
     @abstractmethod
-    def execute(self, options: ScreenOptions) -> ScreenReturn:
+    def execute(self, state: ScreenState) -> ScreenReturn:
         pass
