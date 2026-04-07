@@ -6,3 +6,5 @@ MAIN_MENU_CANCEL_ORDER_OPTION = "Cancelar ordem"
 MAIN_MENU_EXIT_OPTION = "Sair"
 
 REGISTER_ORDER_SCREEN_TITLE = "Registrar ordem"
+
+MESSAGE_INVALID_VALUE = "Valor inválido"

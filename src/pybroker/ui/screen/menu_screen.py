@@ -8,7 +8,7 @@ from pybroker.constant.style import TEXT_INPUT
 
 class MenuScreen(BaseScreen[None, MenuOption]):
     def __init__(self, title: str | None = None, menu_options: list[MenuOption] = []):
-        super().__init__(title)
+        super().__init__(f"📋 {title}")
 
         self.menu_options: list[MenuOption] = menu_options
         self.menu: dict[int, MenuOption] = {}

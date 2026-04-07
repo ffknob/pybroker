@@ -2,37 +2,29 @@ from datetime import datetime
 from decimal import Decimal
 from uuid import UUID, uuid4
 
-from rich.prompt import Prompt
-
 from pybroker.constant.text import REGISTER_ORDER_SCREEN_TITLE
-from pybroker.constant.style import TEXT_INPUT
-from pybroker.ui.screen.base_screen import BaseScreen
-from pybroker.ui.screen.abstract_screen import ScreenState
-from pybroker.ui.component import ErrorMessage
+from pybroker.ui.screen.form_screen import FormScreen
 from pybroker.enums import OrderSide, ExecutionType, OrderStatus, TimeInForce
-from pybroker.schema import Order
+from pybroker.schema import User, Order
 
 
-class RegisterOrderScreen(BaseScreen[None, Order]):
+class RegisterOrderScreen(FormScreen[User, Order]):
     def __init__(self):
         super().__init__(REGISTER_ORDER_SCREEN_TITLE)
 
     def _get_side(self) -> OrderSide:
-        while True:
-            input: str = Prompt.ask(
-                f"[{TEXT_INPUT}]📧 Side ({OrderSide.values()}) [/{TEXT_INPUT}]"
-            )
+        return OrderSide(self.select(label="Side", options=OrderSide.values()))
 
-            if input in OrderSide.values():
-                return OrderSide(input)
+    def _get_quantity(self) -> int:
+        return self.integer_input(label="Quantity")
 
-            else:
-                ErrorMessage().render(options={"message": "Informações incorretas"})
+    def _get_limit_price(self) -> float:
+        return self.float_input(label="Limit price")
 
     def render_content(self) -> None:
         pass
 
-    def interaction(self, state: ScreenState | None = None) -> Order:
+    def interaction(self, state: User | None = None) -> Order:
         id: UUID = uuid4()
         investor_id: UUID = uuid4()
         asset_id: UUID = uuid4()
@@ -40,9 +32,9 @@ class RegisterOrderScreen(BaseScreen[None, Order]):
         execution_type: ExecutionType = ExecutionType.MARKET
         status: OrderStatus = OrderStatus.PENDING
 
-        quantity: int = 100
+        quantity: int = self._get_quantity()
         executed: int = 0
-        limit_price: Decimal = Decimal(150.0)
+        limit_price: Decimal = Decimal(self._get_limit_price())
         stop_price: Decimal = Decimal(150.0)
         time_in_force: TimeInForce = TimeInForce.DAY
 
