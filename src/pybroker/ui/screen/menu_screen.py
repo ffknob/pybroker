@@ -3,12 +3,12 @@ from rich.prompt import Prompt
 from pybroker.ui.screen import ScreenState
 from pybroker.ui.screen import BaseScreen
 from pybroker.model import MenuOption
-from pybroker.constant.colors import TEXT_INPUT
+from pybroker.constant.style import TEXT_INPUT
 
 
 class MenuScreen(BaseScreen[None, MenuOption]):
-    def __init__(self, menu_options: list[MenuOption] = []):
-        super().__init__()
+    def __init__(self, title: str | None = None, menu_options: list[MenuOption] = []):
+        super().__init__(title)
 
         self.menu_options: list[MenuOption] = menu_options
         self.menu: dict[int, MenuOption] = {}
@@ -30,6 +30,8 @@ class MenuScreen(BaseScreen[None, MenuOption]):
 
             print(f"{i} - {description}")
 
+        print("\n")
+
     def get_user_input(self) -> int:
         selected_menu_option: int = 0
 
@@ -44,9 +46,10 @@ class MenuScreen(BaseScreen[None, MenuOption]):
 
         return selected_menu_option
 
-    def execute(self, state: ScreenState | None = None) -> MenuOption:
+    def render(self) -> None:
         self.render_menu()
 
+    def execute(self, state: ScreenState | None = None) -> MenuOption:
         selected_menu_option: int = 0
 
         while not selected_menu_option:

@@ -1,12 +1,12 @@
 from pydantic import EmailStr, SecretStr
 
-from pybroker.enums.usuario import PerfilUsuario
+from pybroker.enums.user_profile import UserProfile
 from pybroker.schema.base import BaseSchema
 
 
-class Usuario(BaseSchema):
-    nome: str
+class User(BaseSchema):
+    name: str
     email: EmailStr
     password: SecretStr
-    perfil: PerfilUsuario
-    ativo: bool
+    profile: UserProfile
+    active: bool

@@ -6,6 +6,6 @@ from pydantic import BaseModel
 
 class BaseSchema(BaseModel):
     id: UUID
-    criado_em: datetime
-    atualizado_em: datetime
-    excluido_em: datetime | None = None
+    created_at: datetime
+    updated_at: datetime
+    deleted_at: datetime | None = None
