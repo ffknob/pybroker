@@ -1,2 +1,2 @@
-TEXTO_DESTAQUE = "bold bright_green"
-TEXTO_INPUT = "blue cyan"
+TEXT_HIGHLIGHT = "bold bright_green"
+TEXT_INPUT = "blue cyan"

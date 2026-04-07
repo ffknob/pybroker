@@ -1,4 +1,4 @@
-from pybroker.ui.screen import MenuScreen
+from pybroker.ui.screen import MenuScreen, ScreenState
 from pybroker.model import MenuOption
 
 MENU: list[MenuOption] = [
@@ -43,3 +43,6 @@ MENU: list[MenuOption] = [
 class MainMenuScreen(MenuScreen):
     def __init__(self):
         super().__init__(MENU)
+
+    def execute(self, state: ScreenState | None = None) -> MenuOption:
+        return super().execute()

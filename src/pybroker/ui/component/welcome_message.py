@@ -1,8 +1,8 @@
-from pybroker.ui.component import BaseUIComponent
-
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
+
+from pybroker.ui.component import BaseUIComponent
 
 console = Console()
 

@@ -7,4 +7,9 @@ class MenuOption(BaseModel):
     icon: str
     name: str
     description: str
-    action: Callable[[Any], Any] | Callable[[], Any]
+    action: (
+        Callable[[Any], Any]
+        | Callable[[], Any]
+        | Callable[[Any], None]
+        | Callable[[], None]
+    )

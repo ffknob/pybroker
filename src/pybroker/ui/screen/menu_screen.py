@@ -1,42 +1,55 @@
 from rich.prompt import Prompt
 
+from pybroker.ui.screen import ScreenState
 from pybroker.ui.screen import BaseScreen
 from pybroker.model import MenuOption
-from pybroker.constant.colors import TEXTO_INPUT
+from pybroker.constant.colors import TEXT_INPUT
 
 
-class MenuScreen(BaseScreen[list[MenuOption], MenuOption]):
+class MenuScreen(BaseScreen[None, MenuOption]):
     def __init__(self, menu_options: list[MenuOption] = []):
         super().__init__()
 
         self.menu_options: list[MenuOption] = menu_options
+        self.menu: dict[int, MenuOption] = {}
 
-    def execute(self, state: None) -> MenuOption:
-        opcoes_menu: list[MenuOption] = state
-        opcoes_menu_ordenadas = sorted(
-            opcoes_menu,
-            key=lambda opcao_menu: opcao_menu.order
-            if opcao_menu.order is not None
+    def render_menu(self) -> None:
+        sorted_menu_options = sorted(
+            self.menu_options,
+            key=lambda menu_option: menu_option.order
+            if menu_option.order is not None
             else 0,
         )
-        menu: dict[int, MenuOption] = {
-            i: opcao_menu for i, opcao_menu in enumerate(opcoes_menu_ordenadas, start=1)
+
+        self.menu: dict[int, MenuOption] = {
+            i: menu_option for i, menu_option in enumerate(sorted_menu_options, start=1)
         }
 
-        for i, opcao_menu in menu.items():
-            descricao: str = f"{opcao_menu.icon} {opcao_menu.description}"
+        for i, menu_option in self.menu.items():
+            description: str = f"{menu_option.icon} {menu_option.description}"
 
-            print(f"{i} - {descricao}")
+            print(f"{i} - {description}")
 
-        item_menu_selecionado: int = 0
+    def get_user_input(self) -> int:
+        selected_menu_option: int = 0
 
-        while not item_menu_selecionado:
+        while not selected_menu_option:
             try:
-                item_menu_selecionado = int(
-                    Prompt.ask(f"[{TEXTO_INPUT}]🔢? [/{TEXTO_INPUT}]")
+                selected_menu_option = int(
+                    Prompt.ask(f"[{TEXT_INPUT}]🔢? [/{TEXT_INPUT}]")
                 )
 
             except KeyError:
                 print("Valor inválido")
 
-        return menu[item_menu_selecionado]
+        return selected_menu_option
+
+    def execute(self, state: ScreenState | None = None) -> MenuOption:
+        self.render_menu()
+
+        selected_menu_option: int = 0
+
+        while not selected_menu_option:
+            selected_menu_option = self.get_user_input()
+
+        return self.menu[selected_menu_option]

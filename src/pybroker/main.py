@@ -6,7 +6,7 @@ from pybroker.provider.auth import (
 from pybroker.service.auth import AuthService
 from pybroker.model import MenuOption
 from pybroker.ui.component import ErrorMessage
-from pybroker.ui.screen import LoginScreen, MenuScreen
+from pybroker.ui.screen import LoginScreen, MainMenuScreen
 
 
 def main():
@@ -22,48 +22,10 @@ def main():
         if not is_authenticated:
             ErrorMessage().render(options={"message": "Informações incorretas"})
 
-    menu: list[MenuOption] = [
-        MenuOption(
-            order=1,
-            name="REGISTRAR",
-            description="Registrar ordem",
-            icon="📝",
-            action=lambda: print("Registrar ordem"),
-        ),
-        MenuOption(
-            order=2,
-            name="CONSULTAR",
-            description="Consultar ordens",
-            icon="🔍",
-            action=lambda: print("Consultar ordens"),
-        ),
-        MenuOption(
-            order=3,
-            name="ALTERAR",
-            description="Alterar ordem",
-            icon="✏️",
-            action=lambda: print("Alterar ordem"),
-        ),
-        MenuOption(
-            order=4,
-            name="CANCELAR",
-            description="Cancelar ordem",
-            icon="❌",
-            action=lambda: print("Cancelar ordem"),
-        ),
-        MenuOption(
-            order=9,
-            name="SAIR",
-            description="Sair",
-            icon="🚪",
-            action=lambda: exit(0),
-        ),
-    ]
-
-    menu_screen: MenuScreen = MenuScreen()
+    main_menu_screen: MainMenuScreen = MainMenuScreen()
 
     while True:
-        item_menu_selecionado: int = menu_screen.execute(menu)
+        item_menu_selecionado: MenuOption = main_menu_screen.execute()
 
         item_menu_selecionado.action()
 
