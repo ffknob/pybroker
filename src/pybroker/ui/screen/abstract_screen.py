@@ -11,7 +11,11 @@ class AbstractScreen(ABC, Generic[ScreenState, ScreenReturn]):
         pass
 
     @abstractmethod
-    def render(self) -> None:
+    def render_content(self) -> None:
+        pass
+
+    @abstractmethod
+    def interaction(self) -> ScreenReturn:
         pass
 
     @abstractmethod

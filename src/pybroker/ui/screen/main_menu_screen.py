@@ -1,4 +1,6 @@
-from pybroker.ui.screen import MenuScreen, ScreenState
+from pybroker.ui.screen.menu_screen import MenuScreen
+from pybroker.ui.screen.register_order_screen import RegisterOrderScreen
+from pybroker.ui.screen.abstract_screen import ScreenState
 from pybroker.model import MenuOption
 from pybroker.constant.text import (
     MAIN_MENU_SCREEN_TITLE,
@@ -53,7 +55,7 @@ class MainMenuScreen(MenuScreen):
         super().__init__(MAIN_MENU_SCREEN_TITLE, menu)
 
     def _register_order_action(self) -> None:
-        pass
+        RegisterOrderScreen().execute()
 
     def _list_orders_action(self) -> None:
         pass
@@ -66,6 +68,3 @@ class MainMenuScreen(MenuScreen):
 
     def _exit_action(self) -> None:
         exit(0)
-
-    def execute(self, state: ScreenState | None = None) -> MenuOption:
-        return super().execute()

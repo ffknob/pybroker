@@ -4,22 +4,22 @@ from uuid import UUID
 
 from pydantic import model_validator
 
-from pybroker.enums.order_status import OrderStatus
-from pybroker.enums.execution_type import ExecutionType
-from pybroker.enums.order_type import OrderType
-from pybroker.schema.base import BaseSchema
+from pybroker.enums import OrderStatus, ExecutionType, OrderSide, TimeInForce
+from pybroker.schema import BaseSchema
 
 
 class Order(BaseSchema):
     investor_id: UUID
     asset_id: UUID
-    type: OrderType
+    side: OrderSide
     execution_type: ExecutionType
+    time_in_force: TimeInForce
     status: OrderStatus
     quantity: int
     executed_quantity: int
     limit_price: Decimal | None = None
     stop_price: Decimal | None = None
+    trailing_amount: Decimal | None = None
     average_executed_price: Decimal | None = None
 
     @model_validator(mode="after")
@@ -30,4 +30,7 @@ class Order(BaseSchema):
         if self.execution_type in (ExecutionType.STOP, ExecutionType.STOP_LIMIT):
             if self.stop_price is None:
                 raise ValueError("stop_price is required for stop orders")
+        if self.execution_type == ExecutionType.TRAILING_STOP:
+            if self.trailing_amount is None:
+                raise ValueError("trailing_amount is required for trailing stop orders")
         return self

@@ -1,7 +1,7 @@
 from rich.prompt import Prompt
 
-from pybroker.ui.screen import ScreenState
-from pybroker.ui.screen import BaseScreen
+from pybroker.ui.screen.abstract_screen import ScreenState
+from pybroker.ui.screen.base_screen import BaseScreen
 from pybroker.model import MenuOption
 from pybroker.constant.style import TEXT_INPUT
 
@@ -32,7 +32,7 @@ class MenuScreen(BaseScreen[None, MenuOption]):
 
         print("\n")
 
-    def get_user_input(self) -> int:
+    def _get_selected_menu_option(self) -> int:
         selected_menu_option: int = 0
 
         while not selected_menu_option:
@@ -46,13 +46,13 @@ class MenuScreen(BaseScreen[None, MenuOption]):
 
         return selected_menu_option
 
-    def render(self) -> None:
+    def render_content(self) -> None:
         self.render_menu()
 
-    def execute(self, state: ScreenState | None = None) -> MenuOption:
+    def interaction(self, state: ScreenState | None = None) -> MenuOption:
         selected_menu_option: int = 0
 
         while not selected_menu_option:
-            selected_menu_option = self.get_user_input()
+            selected_menu_option = self._get_selected_menu_option()
 
         return self.menu[selected_menu_option]

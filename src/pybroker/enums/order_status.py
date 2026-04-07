@@ -1,7 +1,7 @@
-from enum import Enum
+from pybroker.enums.base import BaseEnum
 
 
-class OrderStatus(str, Enum):
+class OrderStatus(BaseEnum):
     PENDING = "pending"
     PARTIALLY_EXECUTED = "partially_executed"
     EXECUTED = "executed"

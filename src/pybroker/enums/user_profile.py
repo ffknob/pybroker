@@ -1,7 +1,7 @@
-from enum import Enum
+from pybroker.enums.base import BaseEnum
 
 
-class UserProfile(str, Enum):
+class UserProfile(BaseEnum):
     ADMIN = "admin"
     OPERATOR = "operator"
     CLIENT = "client"

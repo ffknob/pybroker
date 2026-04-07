@@ -1,6 +1,6 @@
-from enum import Enum
+from pybroker.enums.base import BaseEnum
 
 
-class PersonType(str, Enum):
+class PersonType(BaseEnum):
     INDIVIDUAL = "individual"
     CORPORATE = "corporate"

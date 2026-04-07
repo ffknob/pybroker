@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.rule import Rule
 
-from pybroker.ui.screen import AbstractScreen, ScreenState, ScreenReturn
+from pybroker.ui.screen.abstract_screen import AbstractScreen, ScreenState, ScreenReturn
 from pybroker.constant.style import TITLE_TEXT, TITLE_BAR
 
 console = Console()
@@ -26,9 +26,11 @@ class BaseScreen(AbstractScreen[ScreenState, ScreenReturn]):
 
             print("\n")
 
-    def render_screen(self) -> None:
+    def execute(self, state: ScreenState | None = None) -> ScreenReturn:
         self.clear()
 
         self.render_title()
 
-        self.render()
+        self.render_content()
+
+        return self.interaction()

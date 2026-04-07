@@ -1,7 +1,7 @@
-from enum import Enum
+from pybroker.enums.base import BaseEnum
 
 
-class AssetType(str, Enum):
+class AssetType(BaseEnum):
     STOCK = "stock"
     FII = "fii"
     ETF = "etf"
