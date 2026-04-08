@@ -1,15 +1,18 @@
+import asyncio
+
+from pybroker.model import MenuOption
 from pybroker.model.credentials import Credentials
 from pybroker.provider.auth import (
     AbstractAuthenticationProvider,
     UsernamePasswordAuthProvider,
 )
-from pybroker.service.auth import AuthService
-from pybroker.model import MenuOption
+from pybroker.service import AuthService, AbstractOrderService, OrderService
+from pybroker.repository import AbstractOrderRepository, MemoryOrderRepository
 from pybroker.ui.component import ErrorMessage
 from pybroker.ui.screen import LoginScreen, MainMenuScreen
 
 
-def main():
+async def main():
     auth_provider: AbstractAuthenticationProvider = UsernamePasswordAuthProvider()
     auth_service: AuthService = AuthService(auth_provider)
 
@@ -22,13 +25,15 @@ def main():
         if not is_authenticated:
             ErrorMessage().render(options={"message": "Informações incorretas"})
 
-    main_menu_screen: MainMenuScreen = MainMenuScreen()
+    order_repository: AbstractOrderRepository = MemoryOrderRepository()
+    order_service: AbstractOrderService = OrderService(repository=order_repository)
+    main_menu_screen: MainMenuScreen = MainMenuScreen(order_service=order_service)
 
     while True:
         item_menu_selecionado: MenuOption = main_menu_screen.execute()
 
-        item_menu_selecionado.action()
+        await item_menu_selecionado.action()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

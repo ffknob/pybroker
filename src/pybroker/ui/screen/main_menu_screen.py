@@ -2,6 +2,8 @@ from pybroker.ui.screen.menu_screen import MenuScreen
 from pybroker.ui.screen.register_order_screen import RegisterOrderScreen
 from pybroker.ui.screen.abstract_screen import ScreenState
 from pybroker.model import MenuOption
+from pybroker.schema import Order
+from pybroker.service import AbstractOrderService
 from pybroker.constant.text import (
     MAIN_MENU_SCREEN_TITLE,
     MAIN_MENU_REGISTER_ORDER_OPTION,
@@ -13,7 +15,9 @@ from pybroker.constant.text import (
 
 
 class MainMenuScreen(MenuScreen):
-    def __init__(self):
+    def __init__(self, order_service: AbstractOrderService):
+        self.order_service = order_service
+
         menu: list[MenuOption] = [
             MenuOption(
                 order=1,
@@ -54,8 +58,12 @@ class MainMenuScreen(MenuScreen):
 
         super().__init__(MAIN_MENU_SCREEN_TITLE, menu)
 
-    def _register_order_action(self) -> None:
-        RegisterOrderScreen().execute()
+    async def _register_order_action(self) -> None:
+        order: Order = RegisterOrderScreen().execute()
+
+        await self.order_service.register(order)
+
+        breakpoint()
 
     def _list_orders_action(self) -> None:
         pass
