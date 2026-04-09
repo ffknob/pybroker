@@ -111,6 +111,7 @@ class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
             id=id,
             investor_id=investor_id,
             asset_id=asset_id,
+            ticker=ticker,
             side=side,
             execution_type=execution_type,
             status=status,

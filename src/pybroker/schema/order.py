@@ -11,6 +11,7 @@ from pybroker.schema import BaseSchema
 class Order(BaseSchema):
     investor_id: UUID
     asset_id: UUID
+    ticker: str
     side: OrderSide
     execution_type: ExecutionType
     time_in_force: TimeInForce
