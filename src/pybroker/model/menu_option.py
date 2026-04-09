@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any, Callable, Awaitable
 from pydantic import BaseModel
 
 
@@ -7,9 +7,4 @@ class MenuOption(BaseModel):
     icon: str
     name: str
     description: str
-    action: (
-        Callable[[Any], Any]
-        | Callable[[], Any]
-        | Callable[[Any], None]
-        | Callable[[], None]
-    )
+    action: Callable[..., Awaitable[Any]]

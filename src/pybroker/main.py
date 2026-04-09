@@ -12,7 +12,7 @@ from pybroker.ui.component import ErrorMessage
 from pybroker.ui.screen import LoginScreen, MainMenuScreen
 
 
-async def main():
+async def async_main() -> None:
     auth_provider: AbstractAuthenticationProvider = UsernamePasswordAuthProvider()
     auth_service: AuthService = AuthService(auth_provider)
 
@@ -32,8 +32,12 @@ async def main():
     while True:
         item_menu_selecionado: MenuOption = main_menu_screen.execute()
 
-        await item_menu_selecionado.action()
+        item_menu_selecionado.action()
+
+
+def main() -> None:
+    asyncio.run(async_main())
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
