@@ -1,11 +1,22 @@
-from typing import Generic
+from dataclasses import dataclass
+from typing import TypeVar, Generic
 
-from pybroker.ui.screen.abstract_screen import ScreenState, ScreenReturn
-from pybroker.ui.screen.base_screen import BaseScreen
+from pybroker.ui.screen import ScreenReturn, BaseScreen, BaseScreenState
+
+
+@dataclass
+class FormScreenState(BaseScreenState):
+    pass
+
+
+GenericFormScreenState = TypeVar("GenericFormScreenState", bound=FormScreenState)
 
 
 class FormScreen(
-    BaseScreen[ScreenState, ScreenReturn], Generic[ScreenState, ScreenReturn]
+    BaseScreen[GenericFormScreenState, ScreenReturn],
+    Generic[GenericFormScreenState, ScreenReturn],
 ):
-    def __init__(self, title: str | None = None):
-        super().__init__(title)
+    def __init__(
+        self, title: str | None = None, state: GenericFormScreenState | None = None
+    ):
+        super().__init__(title, state)

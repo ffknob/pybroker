@@ -6,6 +6,9 @@ ScreenReturn = TypeVar("ScreenReturn", bound=Any)
 
 
 class AbstractScreen(ABC, Generic[ScreenState, ScreenReturn]):
+    def __init__(self, state: ScreenState | None = None):
+        self.state = state
+
     @abstractmethod
     def clear(self) -> None:
         pass
@@ -19,5 +22,5 @@ class AbstractScreen(ABC, Generic[ScreenState, ScreenReturn]):
         pass
 
     @abstractmethod
-    def execute(self, state: ScreenState | None = None) -> ScreenReturn:
+    def execute(self) -> ScreenReturn:
         pass

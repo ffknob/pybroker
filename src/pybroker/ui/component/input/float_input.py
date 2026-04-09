@@ -14,12 +14,15 @@ class FloatInputOptions(BaseInputOptions):
 
 
 class FloatInput(BaseInput[FloatInputOptions, float]):
+    def __init__(self, options: FloatInputOptions):
+        super().__init__(options)
+
     # TODO: implementar validação
     def validate(self) -> bool:
         return True
 
-    def render(self, options: FloatInputOptions) -> float:
-        label: str = options.label
+    def render(self) -> float:
+        label: str = self.options.label
 
         while True:
             input: str = Prompt.ask(f"[{TEXT_INPUT}]🔢 {label}[/{TEXT_INPUT}]")

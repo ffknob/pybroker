@@ -1,6 +1,16 @@
-from pybroker.ui.screen.menu_screen import MenuScreen
-from pybroker.ui.screen.register_order_screen import RegisterOrderScreen
-from pybroker.ui.screen.abstract_screen import ScreenState
+from typing import Awaitable
+
+from pybroker.ui.screen import (
+    MenuScreen,
+)
+from pybroker.ui.screen.register_order_screen import (
+    RegisterOrderScreen,
+    RegisterOrderScreenState,
+)
+from pybroker.ui.screen.list_orders_screen import (
+    ListOrdersScreen,
+    ListOrdersScreenState,
+)
 from pybroker.model import MenuOption
 from pybroker.schema import Order
 from pybroker.service import AbstractOrderService
@@ -42,7 +52,7 @@ class MainMenuScreen(MenuScreen):
             ),
             MenuOption(
                 order=4,
-                name="CANCELAR",
+                name="CANCEL",
                 description=MAIN_MENU_CANCEL_ORDER_OPTION,
                 icon="❌",
                 action=self._cancel_order_action,
@@ -59,20 +69,22 @@ class MainMenuScreen(MenuScreen):
         super().__init__(MAIN_MENU_SCREEN_TITLE, menu)
 
     async def _register_order_action(self) -> None:
-        order: Order = RegisterOrderScreen().execute()
+        state: RegisterOrderScreenState = RegisterOrderScreenState(user=None)
+        order: Order = RegisterOrderScreen(state=state).execute()
 
         await self.order_service.register(order)
 
-        breakpoint()
+    async def _list_orders_action(self) -> None:
+        orders: list[Order] = await self.order_service.list()
+        state: ListOrdersScreenState = ListOrdersScreenState(orders=orders)
 
-    def _list_orders_action(self) -> None:
+        ListOrdersScreen(state=state).execute()
+
+    async def _update_order_action(self) -> None:
         pass
 
-    def _update_order_action(self) -> None:
+    async def _cancel_order_action(self) -> None:
         pass
 
-    def _cancel_order_action(self) -> None:
-        pass
-
-    def _exit_action(self) -> None:
+    async def _exit_action(self) -> None:
         exit(0)

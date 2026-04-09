@@ -8,10 +8,13 @@ InputReturn = TypeVar("InputReturn", bound=Any)
 
 
 class AbstractInput(AbstractUIComponent[InputOptions, InputReturn]):
+    def __init__(self, options: InputOptions):
+        super().__init__(options)
+
     @abstractmethod
     def validate(self) -> bool:
         pass
 
     @abstractmethod
-    def render(self, options: InputOptions) -> InputReturn:
+    def render(self) -> InputReturn:
         pass

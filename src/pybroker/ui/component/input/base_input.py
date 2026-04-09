@@ -11,12 +11,12 @@ class BaseInputOptions:
     label: str
 
 
-SpecificInputOptions = TypeVar("SpecificInputOptions", bound=BaseInputOptions)
-SpecificInputReturn = TypeVar("SpecificInputReturn", bound=Any)
+GenericBaseInputOptions = TypeVar("GenericBaseInputOptions", bound=BaseInputOptions)
+GenericBaseInputReturn = TypeVar("GenericBaseInputReturn", bound=Any)
 
 
 class BaseInput(
-    AbstractInput[SpecificInputOptions, SpecificInputReturn],
-    Generic[SpecificInputOptions, SpecificInputReturn],
+    AbstractInput[GenericBaseInputOptions, GenericBaseInputReturn],
+    Generic[GenericBaseInputOptions, GenericBaseInputReturn],
 ):
     pass

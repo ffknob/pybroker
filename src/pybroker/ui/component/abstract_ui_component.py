@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import Generic, TypeVar, Any
 
-ComponentOptions = TypeVar("ComponentOptions", bound=dict | None)
+ComponentOptions = TypeVar("ComponentOptions", bound=Any)
 ComponentReturn = TypeVar("ComponentReturn", bound=Any)
 
 
 class AbstractUIComponent(ABC, Generic[ComponentOptions, ComponentReturn]):
+    def __init__(self, options: ComponentOptions | None = None):
+        self.options = options
+
     @abstractmethod
-    def render(self, options: ComponentOptions) -> ComponentReturn:
+    def render(self) -> ComponentReturn:
         pass

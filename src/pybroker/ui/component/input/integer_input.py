@@ -14,12 +14,15 @@ class IntegerInputOptions(BaseInputOptions):
 
 
 class IntegerInput(BaseInput[IntegerInputOptions, int]):
+    def __init__(self, options: IntegerInputOptions):
+        super().__init__(options)
+
     # TODO: implementar validação
     def validate(self) -> bool:
         return True
 
-    def render(self, options: IntegerInputOptions) -> int:
-        label: str = options.label
+    def render(self) -> int:
+        label: str = self.options.label
 
         while True:
             input: str = Prompt.ask(f"🔢 [{TEXT_INPUT}]{label}[/{TEXT_INPUT}]")

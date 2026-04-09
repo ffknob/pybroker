@@ -32,7 +32,7 @@ async def async_main() -> None:
     while True:
         item_menu_selecionado: MenuOption = main_menu_screen.execute()
 
-        item_menu_selecionado.action()
+        await item_menu_selecionado.action()
 
 
 def main() -> None:

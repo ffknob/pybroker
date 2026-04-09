@@ -8,3 +8,5 @@ from .select_input import SelectInput, SelectInputOptions
 from .text_input import TextInput, TextInputOptions
 from .integer_input import IntegerInput, IntegerInputOptions
 from .float_input import FloatInput, FloatInputOptions
+from .email_input import EmailInput, EmailInputOptions
+from .password_input import PasswordInput, PasswordInputOptions

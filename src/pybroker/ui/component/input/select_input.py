@@ -13,13 +13,16 @@ class SelectInputOptions(BaseInputOptions):
 
 
 class SelectInput(BaseInput[SelectInputOptions, str]):
+    def __init__(self, options: SelectInputOptions):
+        super().__init__(options)
+
     # TODO: implementar validação
     def validate(self) -> bool:
         return True
 
-    def render(self, options: SelectInputOptions) -> str:
-        label: str = options.label
-        choices: list[str] = options.choices
+    def render(self) -> str:
+        label: str = self.options.label
+        choices: list[str] = self.options.choices
 
         return Prompt.ask(
             prompt=f"[{TEXT_INPUT}]📧 {label} [/{TEXT_INPUT}]",

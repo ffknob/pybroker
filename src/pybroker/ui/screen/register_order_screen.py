@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
 from uuid import UUID, uuid4
@@ -22,18 +23,23 @@ from pybroker.ui.component.input import (
     FloatInput,
     FloatInputOptions,
 )
-from pybroker.ui.screen.form_screen import FormScreen
+from pybroker.ui.screen.form_screen import FormScreen, FormScreenState
 from pybroker.enums import OrderSide, ExecutionType, OrderStatus, TimeInForce
 from pybroker.schema import User, Order
 
 
-class RegisterOrderScreen(FormScreen[User, Order]):
-    def __init__(self):
-        super().__init__(REGISTER_ORDER_SCREEN_TITLE)
+@dataclass
+class RegisterOrderScreenState(FormScreenState):
+    user: User | None
+
+
+class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
+    def __init__(self, state: RegisterOrderScreenState | None = None):
+        super().__init__(REGISTER_ORDER_SCREEN_TITLE, state)
 
     def _get_ticker(self) -> str:
         text_input_options: TextInputOptions = TextInputOptions(label=TICKER)
-        text_input_return = TextInput().render(text_input_options)
+        text_input_return = TextInput(options=text_input_options).render()
 
         return text_input_return
 
@@ -41,7 +47,7 @@ class RegisterOrderScreen(FormScreen[User, Order]):
         select_input_options: SelectInputOptions = SelectInputOptions(
             label=SIDE, choices=OrderSide.values()
         )
-        select_input_return = SelectInput().render(select_input_options)
+        select_input_return = SelectInput(options=select_input_options).render()
 
         return OrderSide(select_input_return)
 
@@ -49,7 +55,7 @@ class RegisterOrderScreen(FormScreen[User, Order]):
         select_input_options: SelectInputOptions = SelectInputOptions(
             label=EXECUTION_TYPE, choices=ExecutionType.values()
         )
-        select_input_return = SelectInput().render(select_input_options)
+        select_input_return = SelectInput(options=select_input_options).render()
 
         return ExecutionType(select_input_return)
 
@@ -57,32 +63,32 @@ class RegisterOrderScreen(FormScreen[User, Order]):
         select_input_options: SelectInputOptions = SelectInputOptions(
             label=TIME_IN_FORCE, choices=TimeInForce.values()
         )
-        select_input_return = SelectInput().render(select_input_options)
+        select_input_return = SelectInput(options=select_input_options).render()
 
         return TimeInForce(select_input_return)
 
     def _get_quantity(self) -> int:
         integer_input_options: IntegerInputOptions = IntegerInputOptions(label=QUANTITY)
-        integer_input_return = IntegerInput().render(integer_input_options)
+        integer_input_return = IntegerInput(options=integer_input_options).render()
 
         return integer_input_return
 
     def _get_limit_price(self) -> float:
         float_input_options: FloatInputOptions = FloatInputOptions(label=LIMIT_PRICE)
-        float_input_return = FloatInput().render(float_input_options)
+        float_input_return = FloatInput(options=float_input_options).render()
 
         return float_input_return
 
     def _get_stop_price(self) -> float:
         float_input_options: FloatInputOptions = FloatInputOptions(label=STOP_PRICE)
-        float_input_return = FloatInput().render(float_input_options)
+        float_input_return = FloatInput(options=float_input_options).render()
 
         return float_input_return
 
     def render_content(self) -> None:
         pass
 
-    def interaction(self, state: User | None = None) -> Order:
+    def interaction(self) -> Order:
         id: UUID = uuid4()
         investor_id: UUID = uuid4()
 

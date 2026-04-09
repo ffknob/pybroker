@@ -7,12 +7,12 @@ from pybroker.constant.style import TEXT_INPUT
 
 
 @dataclass
-class TextInputOptions(BaseInputOptions):
+class EmailInputOptions(BaseInputOptions):
     pass
 
 
-class TextInput(BaseInput[TextInputOptions, str]):
-    def __init__(self, options: TextInputOptions):
+class EmailInput(BaseInput[EmailInputOptions, str]):
+    def __init__(self, options: EmailInputOptions):
         super().__init__(options)
 
     # TODO: implementar validação
@@ -22,4 +22,4 @@ class TextInput(BaseInput[TextInputOptions, str]):
     def render(self) -> str:
         label: str = self.options.label
 
-        return Prompt.ask(f"🔤 [{TEXT_INPUT}]{label}[/{TEXT_INPUT}]")
+        return Prompt.ask(f"📧 [{TEXT_INPUT}]{label}[/{TEXT_INPUT}]")

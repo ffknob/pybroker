@@ -1,15 +1,32 @@
+from dataclasses import dataclass
+from typing import TypeVar, Generic
+
 from rich.console import Console
 from rich.rule import Rule
 
-from pybroker.ui.screen.abstract_screen import AbstractScreen, ScreenState, ScreenReturn
+from pybroker.ui.screen.abstract_screen import AbstractScreen, ScreenReturn
 from pybroker.constant.style import TITLE_TEXT, TITLE_BAR
 
 console = Console()
 
 
-class BaseScreen(AbstractScreen[ScreenState, ScreenReturn]):
-    def __init__(self, title: str | None = None):
+@dataclass
+class BaseScreenState:
+    pass
+
+
+GenericBaseScreenState = TypeVar("GenericBaseScreenState", bound=BaseScreenState)
+
+
+class BaseScreen(
+    AbstractScreen[GenericBaseScreenState, ScreenReturn],
+    Generic[GenericBaseScreenState, ScreenReturn],
+):
+    def __init__(
+        self, title: str | None = None, state: GenericBaseScreenState | None = None
+    ):
         self.title: str | None = title
+        self.state: GenericBaseScreenState | None = state
 
     def clear(self) -> None:
         print("\n\n")
@@ -26,7 +43,7 @@ class BaseScreen(AbstractScreen[ScreenState, ScreenReturn]):
 
             print("\n")
 
-    def execute(self, state: ScreenState | None = None) -> ScreenReturn:
+    def execute(self) -> ScreenReturn:
         self.clear()
 
         self.render_title()
