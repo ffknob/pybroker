@@ -8,16 +8,21 @@ from pybroker.provider.auth import (
 )
 from pybroker.service import AuthService, AbstractOrderService, OrderService
 from pybroker.repository import (
-    AbstractOrderRepository,
+    # AbstractOrderRepository,
+    # MemoryOrderRepository
     CsvOrderRepository,
-)  # MemoryOrderRepository
+)
 from pybroker.ui.component import ErrorMessage, ErrorMessageOptions
+from pybroker.ui.screen.menu.options import MainMenuOptions
+from pybroker.ui.screen.menu import (
+    MainMenuScreen,
+    MainMenuScreenState,
+)
 from pybroker.ui.screen import (
     LoginScreen,
     LoginScreenState,
-    MainMenuScreen,
 )
-from pybroker.constant import icon
+from pybroker.constant import text, icon
 
 
 async def async_main() -> None:
@@ -40,7 +45,15 @@ async def async_main() -> None:
     await order_repository.load()
 
     order_service: AbstractOrderService = OrderService(repository=order_repository)
-    main_menu_screen: MainMenuScreen = MainMenuScreen(order_service=order_service)
+    main_menu_options: list[MenuOption] = list(MainMenuOptions(order_service))
+    main_menu_screen: MainMenuScreen = MainMenuScreen(
+        MainMenuScreenState(
+            title=text.MAIN_MENU_SCREEN_TITLE,
+            icon=icon.MENU,
+            show_title=True,
+            options=main_menu_options,
+        )
+    )
 
     while True:
         item_menu_selecionado: MenuOption = main_menu_screen.execute()

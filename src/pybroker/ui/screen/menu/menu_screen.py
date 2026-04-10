@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from pybroker.ui.screen.base_screen import BaseScreen, BaseScreenState
 from pybroker.ui.component.input import IntegerInput, IntegerInputOptions
 from pybroker.model import MenuOption
-from pybroker.constant import style, icon
 
 
 @dataclass(frozen=True)

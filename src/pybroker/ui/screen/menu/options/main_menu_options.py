@@ -1,18 +1,14 @@
-from typing import Awaitable
+from typing import Iterator
 
-from pybroker.ui.screen import (
-    MenuScreen,
-    MenuScreenState,
-)
-from pybroker.ui.screen.register_order_screen import (
+from pybroker.ui.screen.form.order.register_order_screen import (
     RegisterOrderScreen,
     RegisterOrderScreenState,
 )
-from pybroker.ui.screen.list_orders_screen import (
+from pybroker.ui.screen.form.order.list_orders_screen import (
     ListOrdersScreen,
     ListOrdersScreenState,
 )
-from pybroker.ui.screen.cancel_order_screen import (
+from pybroker.ui.screen.form.order.cancel_order_screen import (
     CancelOrderScreen,
     CancelOrderScreenState,
 )
@@ -23,11 +19,11 @@ from pybroker.service import AbstractOrderService
 from pybroker.constant import text, icon
 
 
-class MainMenuScreen(MenuScreen):
+class MainMenuOptions:
     def __init__(self, order_service: AbstractOrderService):
         self.order_service = order_service
 
-        options: list[MenuOption] = [
+        self.options: list[MenuOption] = [
             MenuOption(
                 order=1,
                 name="REGISTER_ORDER",
@@ -64,15 +60,6 @@ class MainMenuScreen(MenuScreen):
                 action=self._exit_action,
             ),
         ]
-
-        super().__init__(
-            MenuScreenState(
-                title=text.MAIN_MENU_SCREEN_TITLE,
-                icon=icon.MENU,
-                show_title=True,
-                options=options,
-            )
-        )
 
     async def _register_order_action(self) -> None:
         state: RegisterOrderScreenState = RegisterOrderScreenState(
@@ -115,3 +102,6 @@ class MainMenuScreen(MenuScreen):
 
     async def _exit_action(self) -> None:
         exit(0)
+
+    def __iter__(self) -> Iterator[MenuOption]:
+        return iter(self.options)
