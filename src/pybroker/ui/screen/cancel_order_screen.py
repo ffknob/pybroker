@@ -63,7 +63,7 @@ class CancelOrderScreen(BaseScreen[CancelOrderScreenState, Order]):
 
     def interaction(self) -> Order:
         selected_order: int = IntegerInput(
-            IntegerInputOptions(label=text.ORDER)
+            IntegerInputOptions(label=f"{text.ORDER} #")
         ).render()
 
         return self.numbered_orders[selected_order]

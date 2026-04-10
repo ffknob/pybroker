@@ -59,19 +59,25 @@ class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
         return TimeInForce(select_input_return)
 
     def _get_quantity(self) -> int:
-        integer_input_options: IntegerInputOptions = IntegerInputOptions(label=text.QUANTITY)
+        integer_input_options: IntegerInputOptions = IntegerInputOptions(
+            label=text.QUANTITY
+        )
         integer_input_return = IntegerInput(options=integer_input_options).render()
 
         return integer_input_return
 
     def _get_limit_price(self) -> float:
-        float_input_options: FloatInputOptions = FloatInputOptions(label=text.LIMIT_PRICE)
+        float_input_options: FloatInputOptions = FloatInputOptions(
+            label=text.LIMIT_PRICE
+        )
         float_input_return = FloatInput(options=float_input_options).render()
 
         return float_input_return
 
     def _get_stop_price(self) -> float:
-        float_input_options: FloatInputOptions = FloatInputOptions(label=text.STOP_PRICE)
+        float_input_options: FloatInputOptions = FloatInputOptions(
+            label=text.STOP_PRICE
+        )
         float_input_return = FloatInput(options=float_input_options).render()
 
         return float_input_return
@@ -96,6 +102,9 @@ class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
         stop_price: Decimal = Decimal(self._get_stop_price())
         time_in_force: TimeInForce = self._get_time_in_force()
 
+        trailing_amount: Decimal | None = None
+        average_executed_price: Decimal | None = None
+
         now: datetime = datetime.now()
 
         return Order(
@@ -110,7 +119,10 @@ class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
             executed_quantity=executed,
             limit_price=limit_price,
             stop_price=stop_price,
+            trailing_amount=trailing_amount,
+            average_executed_price=average_executed_price,
             time_in_force=time_in_force,
             created_at=now,
             updated_at=now,
+            deleted_at=None,
         )
