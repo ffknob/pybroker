@@ -74,6 +74,8 @@ class MainMenuOptions:
 
         await self.order_service.register(order)
 
+        print("\n")
+
         SuccessMessage(
             SuccessMessageOptions(message=text.MESSAGE_ORDER_REGISTERED)
         ).render()
@@ -106,6 +108,8 @@ class MainMenuOptions:
         if order_to_be_updated:
             await self.order_service.update(order_to_be_updated)
 
+            print("\n")
+
             SuccessMessage(
                 SuccessMessageOptions(message=text.MESSAGE_ORDER_UPDATED)
             ).render()
@@ -126,6 +130,8 @@ class MainMenuOptions:
 
         if order_to_be_cancelled:
             await self.order_service.cancel(order_to_be_cancelled)
+
+            print("\n")
 
             SuccessMessage(
                 SuccessMessageOptions(message=text.MESSAGE_ORDER_CANCELLED)

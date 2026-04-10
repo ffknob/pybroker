@@ -143,11 +143,15 @@ class UpdateOrderScreen(FormScreen[UpdateOrderScreenState, Order | None]):
         else:
             print(text.MESSAGE_NO_ORDERS_REGISTERED)
 
+        print("\n")
+
     def interaction(self) -> Order | None:
         if self.state and len(self.state.orders) > 0:
             selected_order: int = IntegerInput(
                 IntegerInputOptions(label=f"{text.ORDER} #")
             ).render()
+
+            print("\n")
 
             order: Order = self.numbered_orders[selected_order]
 
