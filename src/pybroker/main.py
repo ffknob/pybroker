@@ -8,11 +8,11 @@ from pybroker.provider.auth import (
 )
 from pybroker.service import AuthService, AbstractOrderService, OrderService
 from pybroker.repository import (
-    # AbstractOrderRepository,
     # MemoryOrderRepository
+    # SqliteOrderRepository,
     CsvOrderRepository,
 )
-from pybroker.ui.component import ErrorMessage, ErrorMessageOptions
+from pybroker.ui.component.message import ErrorMessage, ErrorMessageOptions
 from pybroker.ui.screen.menu.options import MainMenuOptions
 from pybroker.ui.screen.menu import (
     MainMenuScreen,
@@ -40,7 +40,8 @@ async def async_main() -> None:
         if not is_authenticated:
             ErrorMessage(ErrorMessageOptions(message="Informações incorretas")).render()
 
-    # order_repository: AbstractOrderRepository = MemoryOrderRepository()
+    # order_repository: MemoryOrderRepository = MemoryOrderRepository()
+    # order_repository: SqliteOrderRepository = SqliteOrderRepository()
     order_repository: CsvOrderRepository = CsvOrderRepository(file="orders.csv")
     await order_repository.load()
 

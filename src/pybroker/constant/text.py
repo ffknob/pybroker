@@ -13,6 +13,9 @@ CANCEL_ORDER_SCREEN_TITLE = "Cancelar ordem"
 
 MESSAGE_INVALID_VALUE = "Valor inválido"
 MESSAGE_NO_ORDERS_REGISTERED = "Sem ordens registradas"
+MESSAGE_ORDER_REGISTERED = "Ordem registrada"
+MESSAGE_ORDER_UPDATED = "Ordem atualizada"
+MESSAGE_ORDER_CANCELLED = "Ordem cancelada"
 
 ORDER = "Ordem"
 TICKER = "Ticker"

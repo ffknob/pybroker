@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from pybroker.ui.screen import BaseScreen, BaseScreenState
-from pybroker.ui.component import WelcomeMessage, WelcomeMessageOptions
+from pybroker.ui.component.message import WelcomeMessage, WelcomeMessageOptions
 from pybroker.ui.component.input import (
     EmailInput,
     EmailInputOptions,

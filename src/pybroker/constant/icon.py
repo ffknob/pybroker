@@ -1,3 +1,4 @@
+SUCCESS = "✅"
 ERROR = "❗"
 MENU = "📋"
 

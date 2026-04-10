@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from rich.prompt import Prompt
 
 from pybroker.ui.component.input import BaseInput, BaseInputOptions
-from pybroker.ui.component import ErrorMessage, ErrorMessageOptions
+from pybroker.ui.component.message import ErrorMessage, ErrorMessageOptions
 from pybroker.constant import style, text, icon
 
 

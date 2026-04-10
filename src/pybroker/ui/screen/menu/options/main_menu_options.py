@@ -12,6 +12,7 @@ from pybroker.ui.screen.form.order.cancel_order_screen import (
     CancelOrderScreen,
     CancelOrderScreenState,
 )
+from pybroker.ui.component.message import SuccessMessage, SuccessMessageOptions
 from pybroker.enums import OrderStatus
 from pybroker.model import MenuOption
 from pybroker.schema import Order
@@ -69,6 +70,10 @@ class MainMenuOptions:
 
         await self.order_service.register(order)
 
+        SuccessMessage(
+            SuccessMessageOptions(message=text.MESSAGE_ORDER_REGISTERED)
+        ).render()
+
     async def _list_orders_action(self) -> None:
         orders: list[Order] = await self.order_service.list()
         state: ListOrdersScreenState = ListOrdersScreenState(
@@ -81,7 +86,9 @@ class MainMenuOptions:
         ListOrdersScreen(state=state).execute()
 
     async def _update_order_action(self) -> None:
-        pass
+        SuccessMessage(
+            SuccessMessageOptions(message=text.MESSAGE_ORDER_UPDATED)
+        ).redner()
 
     async def _cancel_order_action(self) -> None:
         orders: list[Order] = await self.order_service.list()
@@ -99,6 +106,10 @@ class MainMenuOptions:
 
         if order_to_be_cancelled:
             await self.order_service.cancel(order_to_be_cancelled)
+
+            SuccessMessage(
+                SuccessMessageOptions(message=text.MESSAGE_ORDER_CANCELLED)
+            ).render()
 
     async def _exit_action(self) -> None:
         exit(0)
