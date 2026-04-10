@@ -1,3 +1,4 @@
 from .register_order_screen import RegisterOrderScreen, RegisterOrderScreenState
+from .update_order_screen import UpdateOrderScreen, UpdateOrderScreenState
 from .list_orders_screen import ListOrdersScreen, ListOrdersScreenState
 from .cancel_order_screen import CancelOrderScreen, CancelOrderScreenState

@@ -8,6 +8,10 @@ from pybroker.ui.screen.form.order.list_orders_screen import (
     ListOrdersScreen,
     ListOrdersScreenState,
 )
+from pybroker.ui.screen.form.order.update_order_screen import (
+    UpdateOrderScreen,
+    UpdateOrderScreenState,
+)
 from pybroker.ui.screen.form.order.cancel_order_screen import (
     CancelOrderScreen,
     CancelOrderScreenState,
@@ -86,9 +90,25 @@ class MainMenuOptions:
         ListOrdersScreen(state=state).execute()
 
     async def _update_order_action(self) -> None:
-        SuccessMessage(
-            SuccessMessageOptions(message=text.MESSAGE_ORDER_UPDATED)
-        ).redner()
+        orders: list[Order] = await self.order_service.list()
+        pending_orders: list[Order] = [
+            order for order in orders if order.status == OrderStatus.PENDING
+        ]
+        state: UpdateOrderScreenState = UpdateOrderScreenState(
+            title=text.UPDATE_ORDER_SCREEN_TITLE,
+            icon=icon.UPDATE,
+            show_title=True,
+            orders=pending_orders,
+        )
+
+        order_to_be_updated: Order | None = UpdateOrderScreen(state=state).execute()
+
+        if order_to_be_updated:
+            await self.order_service.update(order_to_be_updated)
+
+            SuccessMessage(
+                SuccessMessageOptions(message=text.MESSAGE_ORDER_UPDATED)
+            ).render()
 
     async def _cancel_order_action(self) -> None:
         orders: list[Order] = await self.order_service.list()

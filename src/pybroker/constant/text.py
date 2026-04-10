@@ -25,6 +25,7 @@ TIME_IN_FORCE = "Validade"
 QUANTITY = "Quantidade"
 LIMIT_PRICE = "Preço limite"
 STOP_PRICE = "Preço stop"
+STATUS = "Situação"
 
 LIST_ORDERS_TABLE_COLUMN_ID = "ID"
 LIST_ORDERS_TABLE_COLUMN_INVESTOR_ID = "Investor ID"

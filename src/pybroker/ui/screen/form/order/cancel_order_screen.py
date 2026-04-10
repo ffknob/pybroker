@@ -8,6 +8,8 @@ from pybroker.ui.component.input import IntegerInput, IntegerInputOptions
 from pybroker.ui.screen import BaseScreen, BaseScreenState
 from pybroker.schema import Order
 
+console = Console()
+
 
 @dataclass(frozen=True)
 class CancelOrderScreenState(BaseScreenState):
@@ -52,7 +54,7 @@ class CancelOrderScreen(BaseScreen[CancelOrderScreenState, Order | None]):
                     order.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
                 )
 
-            Console().print(table)
+            console.print(table)
 
     def render_content(self) -> None:
         if self.state and len(self.state.orders) > 0:

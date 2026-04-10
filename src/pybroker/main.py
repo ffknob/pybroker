@@ -12,7 +12,12 @@ from pybroker.repository import (
     # SqliteOrderRepository,
     CsvOrderRepository,
 )
-from pybroker.ui.component.message import ErrorMessage, ErrorMessageOptions
+from pybroker.ui.component.message import (
+    ErrorMessage,
+    ErrorMessageOptions,
+    WelcomeMessage,
+    WelcomeMessageOptions,
+)
 from pybroker.ui.screen.menu.options import MainMenuOptions
 from pybroker.ui.screen.menu import (
     MainMenuScreen,
@@ -26,6 +31,8 @@ from pybroker.constant import text, icon
 
 
 async def async_main() -> None:
+    WelcomeMessage(WelcomeMessageOptions()).render()
+
     auth_provider: AbstractAuthenticationProvider = UsernamePasswordAuthProvider()
     auth_service: AuthService = AuthService(auth_provider)
 
