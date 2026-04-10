@@ -3,10 +3,10 @@ from dataclasses import dataclass
 from rich.prompt import Prompt
 
 from pybroker.ui.component.input import BaseInput, BaseInputOptions
-from pybroker.constant import style
+from pybroker.constant import style, icon
 
 
-@dataclass
+@dataclass(frozen=True)
 class PasswordInputOptions(BaseInputOptions):
     pass
 
@@ -22,4 +22,7 @@ class PasswordInput(BaseInput[PasswordInputOptions, str]):
     def render(self) -> str:
         label: str = self.options.label
 
-        return Prompt.ask(f"🔐 [{style.TEXT_INPUT}]{label}[/{style.TEXT_INPUT}]", password=True)
+        return Prompt.ask(
+            f"{icon.PASSWORD} [{style.TEXT_INPUT}]{label}[/{style.TEXT_INPUT}]",
+            password=True,
+        )

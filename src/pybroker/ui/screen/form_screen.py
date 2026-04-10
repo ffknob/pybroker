@@ -4,7 +4,7 @@ from typing import TypeVar, Generic
 from pybroker.ui.screen import ScreenReturn, BaseScreen, BaseScreenState
 
 
-@dataclass
+@dataclass(frozen=True)
 class FormScreenState(BaseScreenState):
     pass
 
@@ -16,7 +16,5 @@ class FormScreen(
     BaseScreen[GenericFormScreenState, ScreenReturn],
     Generic[GenericFormScreenState, ScreenReturn],
 ):
-    def __init__(
-        self, title: str | None = None, state: GenericFormScreenState | None = None
-    ):
-        super().__init__(title, state)
+    def __init__(self, state: GenericFormScreenState):
+        super().__init__(state)

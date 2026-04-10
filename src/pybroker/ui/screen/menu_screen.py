@@ -1,16 +1,21 @@
-from rich.prompt import Prompt
+from dataclasses import dataclass
 
-from pybroker.ui.screen.abstract_screen import ScreenState
-from pybroker.ui.screen.base_screen import BaseScreen
+from pybroker.ui.screen.base_screen import BaseScreen, BaseScreenState
+from pybroker.ui.component.input import IntegerInput, IntegerInputOptions
 from pybroker.model import MenuOption
-from pybroker.constant import style
+from pybroker.constant import style, icon
 
 
-class MenuScreen(BaseScreen[None, MenuOption]):
-    def __init__(self, title: str | None = None, menu_options: list[MenuOption] = []):
-        super().__init__(f"📋 {title}")
+@dataclass(frozen=True)
+class MenuScreenState(BaseScreenState):
+    options: list[MenuOption]
 
-        self.menu_options: list[MenuOption] = menu_options
+
+class MenuScreen(BaseScreen[MenuScreenState, MenuOption]):
+    def __init__(self, state: MenuScreenState):
+        super().__init__(state)
+
+        self.menu_options: list[MenuOption] = self.state.options
         self.menu: dict[int, MenuOption] = {}
 
     def render_menu(self) -> None:
@@ -37,9 +42,9 @@ class MenuScreen(BaseScreen[None, MenuOption]):
 
         while not selected_menu_option:
             try:
-                selected_menu_option = int(
-                    Prompt.ask(f"[{style.TEXT_INPUT}]🔢? [/{style.TEXT_INPUT}]")
-                )
+                selected_menu_option = IntegerInput(
+                    IntegerInputOptions(label="?")
+                ).render()
 
             except KeyError:
                 print("Valor inválido")
@@ -49,7 +54,9 @@ class MenuScreen(BaseScreen[None, MenuOption]):
     def render_content(self) -> None:
         self.render_menu()
 
-    def interaction(self, state: ScreenState | None = None) -> MenuOption:
+    def interaction(
+        self,
+    ) -> MenuOption:
         selected_menu_option: int = 0
 
         while not selected_menu_option:

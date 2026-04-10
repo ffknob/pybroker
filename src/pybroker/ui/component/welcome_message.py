@@ -1,15 +1,21 @@
+from dataclasses import dataclass
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
-from pybroker.ui.component import BaseUIComponent
+from pybroker.ui.component import BaseUIComponent, BaseUIComponentOptions
 
 console = Console()
 
 
-class WelcomeMessage(BaseUIComponent[None, None]):
-    def __init__(self):
-        super().__init__()
+@dataclass(frozen=True)
+class WelcomeMessageOptions(BaseUIComponentOptions):
+    pass
+
+
+class WelcomeMessage(BaseUIComponent[WelcomeMessageOptions, None]):
+    def __init__(self, options: WelcomeMessageOptions) -> None:
+        super().__init__(options)
 
     def _title(self) -> Text:
         return (

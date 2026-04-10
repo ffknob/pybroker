@@ -3,11 +3,10 @@ from dataclasses import dataclass
 from rich.prompt import Prompt
 
 from pybroker.ui.component.input import BaseInput, BaseInputOptions
-from pybroker.constant import style
-# from pybroker.constant.text import MESSAGE_INVALID_VALUE
+from pybroker.constant import style, icon
 
 
-@dataclass
+@dataclass(frozen=True)
 class SelectInputOptions(BaseInputOptions):
     choices: list[str]
 
@@ -25,7 +24,7 @@ class SelectInput(BaseInput[SelectInputOptions, str]):
         choices: list[str] = self.options.choices
 
         return Prompt.ask(
-            prompt=f"[{style.TEXT_INPUT}]📧 {label} [/{style.TEXT_INPUT}]",
+            prompt=f"[{style.TEXT_INPUT}]{icon.SELECT} {label} [/{style.TEXT_INPUT}]",
             choices=choices,
             show_choices=True,
         )

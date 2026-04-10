@@ -6,7 +6,7 @@ from pybroker.ui.component.input import (
 )
 
 
-@dataclass
+@dataclass(frozen=True)
 class BaseInputOptions:
     label: str
 

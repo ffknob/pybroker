@@ -8,14 +8,14 @@ from pybroker.ui.screen import BaseScreen, BaseScreenState
 from pybroker.schema import Order
 
 
-@dataclass
+@dataclass(frozen=True)
 class ListOrdersScreenState(BaseScreenState):
     orders: list[Order]
 
 
 class ListOrdersScreen(BaseScreen[ListOrdersScreenState, None]):
-    def __init__(self, state: ListOrdersScreenState | None = None):
-        super().__init__(text.LIST_ORDERS_SCREEN_TITLE, state)
+    def __init__(self, state: ListOrdersScreenState):
+        super().__init__(state)
 
     def _render_orders_table(self) -> None:
         if self.state and len(self.state.orders) > 0:

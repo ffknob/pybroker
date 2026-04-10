@@ -1,0 +1,15 @@
+ERROR = "❗"
+MENU = "📋"
+
+LOGIN = "👤"
+REGISTER = "📝"
+LIST = "🔍"
+UPDATE = "✏️"
+CANCEL = "❌"
+EXIT = "🚪"
+
+EMAIL = "📧"
+PASSWORD = "🔐"
+SELECT = "🔽"
+NUMBER = "🔢"
+TEXT = "🔤"

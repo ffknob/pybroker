@@ -10,9 +10,11 @@ from pybroker.constant import style
 console = Console()
 
 
-@dataclass
+@dataclass(frozen=True)
 class BaseScreenState:
-    pass
+    title: str
+    icon: str
+    show_title: bool
 
 
 GenericBaseScreenState = TypeVar("GenericBaseScreenState", bound=BaseScreenState)
@@ -22,20 +24,17 @@ class BaseScreen(
     AbstractScreen[GenericBaseScreenState, ScreenReturn],
     Generic[GenericBaseScreenState, ScreenReturn],
 ):
-    def __init__(
-        self, title: str | None = None, state: GenericBaseScreenState | None = None
-    ):
-        self.title: str | None = title
-        self.state: GenericBaseScreenState | None = state
+    def __init__(self, state: GenericBaseScreenState):
+        self.state: GenericBaseScreenState = state
 
     def clear(self) -> None:
         print("\n\n")
 
     def render_title(self) -> None:
-        if self.title:
+        if self.state.title:
             console.print(
                 Rule(
-                    title=f"[{style.TITLE_TEXT}]{self.title}[/{style.TITLE_TEXT}]",
+                    title=f"[{style.TITLE_TEXT}]{self.state.icon} {self.state.title}[/{style.TITLE_TEXT}]",
                     style=style.TITLE_BAR,
                     align="left",
                 )

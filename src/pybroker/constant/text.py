@@ -8,6 +8,7 @@ MAIN_MENU_EXIT_OPTION = "Sair"
 LOGIN_SCREEN_TITLE = "Login"
 REGISTER_ORDER_SCREEN_TITLE = "Registrar ordem"
 LIST_ORDERS_SCREEN_TITLE = "Listar ordens"
+UPDATE_ORDER_SCREEN_TITLE = "Atualizar ordem"
 CANCEL_ORDER_SCREEN_TITLE = "Cancelar ordem"
 
 MESSAGE_INVALID_VALUE = "Valor inválido"

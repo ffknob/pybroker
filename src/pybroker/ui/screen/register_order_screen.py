@@ -19,14 +19,14 @@ from pybroker.enums import OrderSide, ExecutionType, OrderStatus, TimeInForce
 from pybroker.schema import User, Order
 
 
-@dataclass
+@dataclass(frozen=True)
 class RegisterOrderScreenState(FormScreenState):
-    user: User | None
+    pass
 
 
 class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
-    def __init__(self, state: RegisterOrderScreenState | None = None):
-        super().__init__(text.REGISTER_ORDER_SCREEN_TITLE, state)
+    def __init__(self, state: RegisterOrderScreenState):
+        super().__init__(state)
 
     def _get_ticker(self) -> str:
         text_input_options: TextInputOptions = TextInputOptions(label=text.TICKER)

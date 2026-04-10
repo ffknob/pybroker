@@ -9,14 +9,14 @@ from pybroker.ui.screen import BaseScreen, BaseScreenState
 from pybroker.schema import Order
 
 
-@dataclass
+@dataclass(frozen=True)
 class CancelOrderScreenState(BaseScreenState):
     orders: list[Order]
 
 
-class CancelOrderScreen(BaseScreen[CancelOrderScreenState, Order]):
-    def __init__(self, state: CancelOrderScreenState | None = None):
-        super().__init__(text.CANCEL_ORDER_SCREEN_TITLE, state)
+class CancelOrderScreen(BaseScreen[CancelOrderScreenState, Order | None]):
+    def __init__(self, state: CancelOrderScreenState):
+        super().__init__(state)
 
         self.numbered_orders: dict[int, Order] = {}
 
@@ -61,9 +61,12 @@ class CancelOrderScreen(BaseScreen[CancelOrderScreenState, Order]):
         else:
             print(text.MESSAGE_NO_ORDERS_REGISTERED)
 
-    def interaction(self) -> Order:
-        selected_order: int = IntegerInput(
-            IntegerInputOptions(label=f"{text.ORDER} #")
-        ).render()
+        print("\n")
 
-        return self.numbered_orders[selected_order]
+    def interaction(self) -> Order | None:
+        if self.state and len(self.state.orders) > 0:
+            selected_order: int = IntegerInput(
+                IntegerInputOptions(label=f"{text.ORDER} #")
+            ).render()
+
+            return self.numbered_orders[selected_order]

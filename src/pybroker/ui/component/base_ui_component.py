@@ -4,7 +4,7 @@ from typing import Generic, Any, TypeVar
 from pybroker.ui.component import AbstractUIComponent
 
 
-@dataclass
+@dataclass(frozen=True)
 class BaseUIComponentOptions:
     pass
 
@@ -19,5 +19,5 @@ class BaseUIComponent(
     AbstractUIComponent[GenericBaseUIComponentOptions, GenericBaseUIComponentReturn],
     Generic[GenericBaseUIComponentOptions, GenericBaseUIComponentReturn],
 ):
-    def __init__(self, options: GenericBaseUIComponentOptions | None = None):
+    def __init__(self, options: GenericBaseUIComponentOptions):
         super().__init__(options)

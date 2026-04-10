@@ -1,17 +1,23 @@
+from dataclasses import dataclass
 from rich.console import Console
 from rich.text import Text
 
-from pybroker.ui.component import BaseUIComponent
+from pybroker.constant import icon
+from pybroker.ui.component import BaseUIComponent, BaseUIComponentOptions
 
 console = Console()
 
 
-class ErrorMessage(BaseUIComponent[dict[str, str], None]):
-    def __init__(self):
-        super().__init__()
+@dataclass(frozen=True)
+class ErrorMessageOptions(BaseUIComponentOptions):
+    message: str
 
-    @staticmethod
-    def render(options: dict[str, str]) -> None:
-        message: str = options.get("message", "Erro desconhecido")
 
-        console.print(Text().append(f"🚨 {message}", style="red"))
+class ErrorMessage(BaseUIComponent[ErrorMessageOptions, None]):
+    def __init__(self, options: ErrorMessageOptions) -> None:
+        super().__init__(options)
+
+    def render(self) -> None:
+        message: str = self.options.message
+
+        console.print(Text().append(f"{icon.ERROR} {message}", style="red"))

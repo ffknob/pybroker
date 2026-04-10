@@ -3,11 +3,11 @@ from dataclasses import dataclass
 from rich.prompt import Prompt
 
 from pybroker.ui.component.input import BaseInput, BaseInputOptions
-from pybroker.ui.component import ErrorMessage
-from pybroker.constant import style, text
+from pybroker.ui.component import ErrorMessage, ErrorMessageOptions
+from pybroker.constant import style, text, icon
 
 
-@dataclass
+@dataclass(frozen=True)
 class FloatInputOptions(BaseInputOptions):
     pass
 
@@ -24,10 +24,12 @@ class FloatInput(BaseInput[FloatInputOptions, float]):
         label: str = self.options.label
 
         while True:
-            input: str = Prompt.ask(f"[{style.TEXT_INPUT}]🔢 {label}[/{style.TEXT_INPUT}]")
+            input: str = Prompt.ask(
+                f"[{style.TEXT_INPUT}]{icon.NUMBER} {label}[/{style.TEXT_INPUT}]"
+            )
 
             try:
                 return float(input)
 
             except ValueError:
-                ErrorMessage().render({"message": text.MESSAGE_INVALID_VALUE})
+                ErrorMessage(ErrorMessageOptions(message=text.MESSAGE_INVALID_VALUE))

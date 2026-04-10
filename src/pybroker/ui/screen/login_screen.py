@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from pybroker.ui.screen import BaseScreen, BaseScreenState
-from pybroker.ui.component import WelcomeMessage
+from pybroker.ui.component import WelcomeMessage, WelcomeMessageOptions
 from pybroker.ui.component.input import (
     EmailInput,
     EmailInputOptions,
@@ -11,17 +11,17 @@ from pybroker.ui.component.input import (
 from pybroker.model import Credentials
 
 
-@dataclass
+@dataclass(frozen=True)
 class LoginScreenState(BaseScreenState):
     pass
 
 
 class LoginScreen(BaseScreen[LoginScreenState, Credentials]):
-    def __init__(self, state: LoginScreenState | None = None):
-        super().__init__(None, state)
+    def __init__(self, state: LoginScreenState):
+        super().__init__(state)
 
     def render_content(self) -> None:
-        WelcomeMessage().render()
+        WelcomeMessage(WelcomeMessageOptions()).render()
 
     def interaction(self) -> Credentials:
         username = EmailInput(EmailInputOptions(label="E-mail")).render()
