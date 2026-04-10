@@ -6,7 +6,7 @@ ComponentReturn = TypeVar("ComponentReturn", bound=Any)
 
 
 class AbstractUIComponent(ABC, Generic[ComponentOptions, ComponentReturn]):
-    def __init__(self, options: ComponentOptions | None = None):
+    def __init__(self, options: ComponentOptions):
         self.options = options
 
     @abstractmethod

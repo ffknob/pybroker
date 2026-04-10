@@ -3,16 +3,7 @@ from datetime import datetime
 from decimal import Decimal
 from uuid import UUID, uuid4
 
-from pybroker.constant.text import (
-    TICKER,
-    STOP_PRICE,
-    LIMIT_PRICE,
-    QUANTITY,
-    REGISTER_ORDER_SCREEN_TITLE,
-    SIDE,
-    EXECUTION_TYPE,
-    TIME_IN_FORCE,
-)
+from pybroker.constant import text
 from pybroker.ui.component.input import (
     TextInput,
     TextInputOptions,
@@ -35,17 +26,17 @@ class RegisterOrderScreenState(FormScreenState):
 
 class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
     def __init__(self, state: RegisterOrderScreenState | None = None):
-        super().__init__(REGISTER_ORDER_SCREEN_TITLE, state)
+        super().__init__(text.REGISTER_ORDER_SCREEN_TITLE, state)
 
     def _get_ticker(self) -> str:
-        text_input_options: TextInputOptions = TextInputOptions(label=TICKER)
+        text_input_options: TextInputOptions = TextInputOptions(label=text.TICKER)
         text_input_return = TextInput(options=text_input_options).render()
 
         return text_input_return
 
     def _get_side(self) -> OrderSide:
         select_input_options: SelectInputOptions = SelectInputOptions(
-            label=SIDE, choices=OrderSide.values()
+            label=text.SIDE, choices=OrderSide.values()
         )
         select_input_return = SelectInput(options=select_input_options).render()
 
@@ -53,7 +44,7 @@ class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
 
     def _get_execution_type(self) -> ExecutionType:
         select_input_options: SelectInputOptions = SelectInputOptions(
-            label=EXECUTION_TYPE, choices=ExecutionType.values()
+            label=text.EXECUTION_TYPE, choices=ExecutionType.values()
         )
         select_input_return = SelectInput(options=select_input_options).render()
 
@@ -61,26 +52,26 @@ class RegisterOrderScreen(FormScreen[RegisterOrderScreenState, Order]):
 
     def _get_time_in_force(self) -> TimeInForce:
         select_input_options: SelectInputOptions = SelectInputOptions(
-            label=TIME_IN_FORCE, choices=TimeInForce.values()
+            label=text.TIME_IN_FORCE, choices=TimeInForce.values()
         )
         select_input_return = SelectInput(options=select_input_options).render()
 
         return TimeInForce(select_input_return)
 
     def _get_quantity(self) -> int:
-        integer_input_options: IntegerInputOptions = IntegerInputOptions(label=QUANTITY)
+        integer_input_options: IntegerInputOptions = IntegerInputOptions(label=text.QUANTITY)
         integer_input_return = IntegerInput(options=integer_input_options).render()
 
         return integer_input_return
 
     def _get_limit_price(self) -> float:
-        float_input_options: FloatInputOptions = FloatInputOptions(label=LIMIT_PRICE)
+        float_input_options: FloatInputOptions = FloatInputOptions(label=text.LIMIT_PRICE)
         float_input_return = FloatInput(options=float_input_options).render()
 
         return float_input_return
 
     def _get_stop_price(self) -> float:
-        float_input_options: FloatInputOptions = FloatInputOptions(label=STOP_PRICE)
+        float_input_options: FloatInputOptions = FloatInputOptions(label=text.STOP_PRICE)
         float_input_return = FloatInput(options=float_input_options).render()
 
         return float_input_return

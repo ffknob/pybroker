@@ -3,7 +3,7 @@ from rich.prompt import Prompt
 from pybroker.ui.screen.abstract_screen import ScreenState
 from pybroker.ui.screen.base_screen import BaseScreen
 from pybroker.model import MenuOption
-from pybroker.constant.style import TEXT_INPUT
+from pybroker.constant import style
 
 
 class MenuScreen(BaseScreen[None, MenuOption]):
@@ -38,7 +38,7 @@ class MenuScreen(BaseScreen[None, MenuOption]):
         while not selected_menu_option:
             try:
                 selected_menu_option = int(
-                    Prompt.ask(f"[{TEXT_INPUT}]🔢? [/{TEXT_INPUT}]")
+                    Prompt.ask(f"[{style.TEXT_INPUT}]🔢? [/{style.TEXT_INPUT}]")
                 )
 
             except KeyError:

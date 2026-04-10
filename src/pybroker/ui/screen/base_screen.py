@@ -5,7 +5,7 @@ from rich.console import Console
 from rich.rule import Rule
 
 from pybroker.ui.screen.abstract_screen import AbstractScreen, ScreenReturn
-from pybroker.constant.style import TITLE_TEXT, TITLE_BAR
+from pybroker.constant import style
 
 console = Console()
 
@@ -35,8 +35,8 @@ class BaseScreen(
         if self.title:
             console.print(
                 Rule(
-                    title=f"[{TITLE_TEXT}]{self.title}[/{TITLE_TEXT}]",
-                    style=TITLE_BAR,
+                    title=f"[{style.TITLE_TEXT}]{self.title}[/{style.TITLE_TEXT}]",
+                    style=style.TITLE_BAR,
                     align="left",
                 )
             )

@@ -8,10 +8,12 @@ MAIN_MENU_EXIT_OPTION = "Sair"
 LOGIN_SCREEN_TITLE = "Login"
 REGISTER_ORDER_SCREEN_TITLE = "Registrar ordem"
 LIST_ORDERS_SCREEN_TITLE = "Listar ordens"
+CANCEL_ORDER_SCREEN_TITLE = "Cancelar ordem"
 
 MESSAGE_INVALID_VALUE = "Valor inválido"
 MESSAGE_NO_ORDERS_REGISTERED = "Sem ordens registradas"
 
+ORDER = "Ordem"
 TICKER = "Ticker"
 SIDE = "Lado"
 EXECUTION_TYPE = "Tipo de execução"

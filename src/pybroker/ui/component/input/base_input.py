@@ -19,4 +19,5 @@ class BaseInput(
     AbstractInput[GenericBaseInputOptions, GenericBaseInputReturn],
     Generic[GenericBaseInputOptions, GenericBaseInputReturn],
 ):
-    pass
+    def __init__(self, options: GenericBaseInputOptions):
+        super().__init__(options)
